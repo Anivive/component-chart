@@ -1,7 +1,7 @@
 apiVersion: v2
-name: component-chart
+name: anivive-service
 description: A general purpose helm chart for deploying components of an application
-version: 0.0.0
+version: 1.0.0
 dependencies:
   - name: postgresql
     version: '^8'
