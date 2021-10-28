@@ -9,6 +9,6 @@ metadata:
     release: {{ $.Release.Name }}
     heritage: {{ $.Release.Service }}
 spec:
-  {{ toYaml $oathkeeperRule.rule | indent 2 }}
+  {{ toYaml $oathkeeperRule.rule | indent 4 }}
 {{- end }}
 {{- end }}
