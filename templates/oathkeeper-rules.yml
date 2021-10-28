@@ -1,0 +1,14 @@
+{{- if $.Values.oathkeeper }} 
+{{- range $oathkeeperRuleIndex, $oathkeeperRule := $.Values.oathkeeper.rules }}
+apiVersion: oathkeeper.ory.sh/v1alpha1
+kind: Rule
+metadata:
+  name: {{ $oathkeeperRule.name }}
+  labels:
+    chart: {{ $.Chart.Name }}
+    release: {{ $.Release.Name }}
+    heritage: {{ $.Release.Service }}
+spec:
+  {{ toYaml $oathkeeperRules.rule | indent 2 }}
+{{- end }}
+{{- end }}
