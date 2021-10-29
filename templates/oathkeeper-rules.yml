@@ -10,5 +10,6 @@ metadata:
     heritage: {{ $.Release.Service }}
 spec:
 {{ toYaml $oathkeeperRule.rule | indent 4 }}
+---
 {{- end }}
 {{- end }}
