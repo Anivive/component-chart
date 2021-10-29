@@ -40,6 +40,9 @@ metadata:
   {{- end }}
   {{- end }}
   {{- end }}
+  {{- if $.Values.ingress.namespace }}
+  namespace: {{ $.Values.ingress.namespace | quote }}
+  {{- end }}
   labels:
     "app.kubernetes.io/name": {{ $.Release.Name | quote }}
     "app.kubernetes.io/managed-by": {{ $.Release.Service | quote }}
