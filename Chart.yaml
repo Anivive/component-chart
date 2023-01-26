@@ -2,8 +2,4 @@ apiVersion: v2
 name: anivive-service
 description: A general purpose helm chart for deploying components of an application
 version: 1.0.0
-dependencies:
-  - name: postgresql
-    version: '^8'
-    repository: https://charts.bitnami.com/bitnami
-    condition: postgresql.enabled
+
