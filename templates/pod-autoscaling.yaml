@@ -14,12 +14,12 @@
     {{- end }}
   {{- end }}
 {{- end }}
-apiVersion: autoscaling/v2beta1
+apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: {{ $.Release.Name | quote }}
   labels:
-    "app.kubernetes.io/name": "devspace-app"
+    "app.kubernetes.io/name": "anivive-Autoscaler"
     "app.kubernetes.io/component": {{ $.Release.Name | quote }}
     "app.kubernetes.io/managed-by": {{ $.Release.Service | quote }}
     {{- range $labelName, $labelValue := $.Values.labels }}
@@ -38,29 +38,21 @@ spec:
   minReplicas: {{ $.Values.replicas }}
   maxReplicas: {{ $.Values.autoScaling.horizontal.maxReplicas }}
   metrics:
-  {{- if $.Values.autoScaling.horizontal.averageCPU }}
-  - type: Resource
-    resource:
-      name: cpu
-      targetAverageValue: {{ $.Values.autoScaling.horizontal.averageCPU }}
-  {{- end }}
   {{- if $.Values.autoScaling.horizontal.averageRelativeCPU }}
   - type: Resource
     resource:
       name: cpu
-      targetAverageUtilization: {{ $.Values.autoScaling.horizontal.averageRelativeCPU }}
-  {{- end }}
-  {{- if $.Values.autoScaling.horizontal.averageMemory }}
-  - type: Resource
-    resource:
-      name: memory
-      targetAverageValue: {{ $.Values.autoScaling.horizontal.averageMemory | quote }}
+      target:
+        type: Utilization
+        averageUtilization: {{ $.Values.autoScaling.horizontal.averageRelativeCPU }}
   {{- end }}
   {{- if $.Values.autoScaling.horizontal.averageRelativeMemory }}
   - type: Resource
     resource:
       name: memory
-      targetAverageUtilization: {{ $.Values.autoScaling.horizontal.averageRelativeMemory | quote }}
+      target:
+        type: Utilization
+        averageUtilization: {{ $.Values.autoScaling.horizontal.averageRelativeMemory }}
   {{- end }}
 ---
 {{- end }}
