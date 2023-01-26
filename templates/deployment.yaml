@@ -242,10 +242,10 @@ spec:
             {{- with $container.resources.limits }}
             limits:
               {{- if .cpu }}
-              cpu: {{ .cpu | quote }} {{- else}} 400m
+              cpu: {{ .cpu | quote }}
               {{- end }}
               {{- if .memory }}
-              memory: {{ .memory | quote }} {{- else}} 250Mi
+              memory: {{ .memory | quote }}
               {{- end }}
               {{- if .ephemeralStorage }}
               ephemeral-storage: {{ .ephemeralStorage | quote }}
@@ -289,13 +289,21 @@ spec:
               cpu: "10m"
               {{- end }}
               {{- if $container.resources.limits.memory }}
-              memory: "50Mi"
+              memory: "50mi"
               {{- end }}
               {{- if $container.resources.limits.ephemeralStorage }}
               ephemeral-storage: "0"
               {{- end }}
             {{- end }}
             {{- end }}
+          {{else}}
+          resources:
+            limits:
+              cpu: 400m
+              memory: 250Mi
+            requests:
+              cpu: 10m
+              memory: 50Mi
           {{- end }}
         {{- end }}
       initContainers:
