@@ -25,9 +25,9 @@ spec:
       containers:
         - name: {{ $job.name }}-migratation
           image: {{ $job.image}}
-          command: {{- toYaml $job.command | nindent 10 }}
-          args: {{- toYaml $job.args | nindent 10 }}
+          command: {{- toYaml $job.command | nindent 12 }}
+          args: {{- toYaml $job.args | nindent 12 }}
           envFrom:
-  {{ toYaml $job.envFrom | indent 12 }}
+  {{- toYaml $job.envFrom | nindent 10 }}
   {{- end }}
   {{- end}}
