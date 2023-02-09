@@ -24,7 +24,13 @@ spec:
       restartPolicy: Never
       containers:
         - name: {{ $job.name }}-migratation
-          image: {{ $job.image}}
+   {{- if $job.image}}
+          image: {{ $job.image | quote }}
+    {{- else}}
+    {{- with index $.Values.containers 0 }}
+          image: {{ .image | quote }}
+    {{- end }}
+    {{- end}}
           command: {{- toYaml $job.command | nindent 12 }}
           args: {{- toYaml $job.args | nindent 12 }}
           envFrom:

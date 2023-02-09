@@ -308,7 +308,13 @@ spec:
         {{- end }}
       initContainers:
         {{- range $containerIndex, $container := $.Values.initContainers }}
+          {{- if $container.image}}
         - image: {{ $container.image | quote }}
+          {{- else}}
+          {{- with index $.Values.containers 0 }}
+        - image: {{ .image | quote }}
+          {{- end }}
+          {{- end}}
           {{- if $container.name }}
           name: {{ $container.name | quote }}
           {{- else }}
