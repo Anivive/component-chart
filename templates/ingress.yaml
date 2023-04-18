@@ -125,7 +125,6 @@ spec:
         pathType: ImplementationSpecific
         {{- end }}
         {{- end }}
-
   {{- end }}
   {{- if ne (printf "%s" $tlsSecretName) "" }}
   tls:
