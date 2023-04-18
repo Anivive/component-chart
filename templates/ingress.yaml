@@ -125,15 +125,23 @@ spec:
         pathType: ImplementationSpecific
         {{- end }}
         {{- end }}
-        
+
   {{- end }}
   {{- if ne (printf "%s" $tlsSecretName) "" }}
   tls:
   - hosts:
+    {{- if $.Values.ingress.tlsHost}}
+    - {{ $.Values.ingress.tlsHost | quote }}
+    {{- else}}
     {{- range $ingressRuleIndex, $ingressRule := $.Values.ingress.rules }}
     - {{ $ingressRule.host | quote }}
-    {{- end }}
+    {{- end}}
+    {{- end}}
+    {{- if $.Values.ingress.tlsSecretName}}
+    secretName: {{ $.Values.ingress.tlsSecretName | quote }}
+    {{- else }}
     secretName: {{ $tlsSecretName | quote }}
+    {{- end }}
   {{- end }}
 
 ---
